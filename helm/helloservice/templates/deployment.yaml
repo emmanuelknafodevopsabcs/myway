@@ -1,18 +1,33 @@
---- 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: your_deployment
+  name: helloservice
+  namespace: { { .Release.Namespace } }
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
-      app: your_service
+      app: helloservice
   template:
-    metadata: 
+    metadata:
       labels:
-        app: your_service
+        app: helloservice
     spec:
+      terminationGracePeriodSeconds: 5
       containers:
-      - name: your_service
-        image: "{{ .Values.image }}"
+        - name: helloservice
+          image: "{{ .Values.image }}"
+          imagePullPolicy: Always
+          #ports:
+          #- containerPort: 9000
+          env:
+            - name: PORT
+              value: "9000"
+            - name: KEPTN_PROJECT
+              value: "{{ .Chart.Name }}"
+            - name: KEPTN_STAGE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: KEPTN_SERVICE
+              value: "{{ .Values.SERVICE_PLACEHOLDER_C.service.name }}"
