@@ -11,11 +11,13 @@ $API_TOKEN = kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.kept
 Write-Host $API_TOKEN
 keptn auth --endpoint=http://192.168.102.38/api --api-token=$API_TOKEN
 
-$GITHUB_TOKEN = "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"
+$GITHUB_TOKEN = "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" # ONLY NEED TO INPUT NEW TOKEN
 $GIT_USER = "emmanuelknafodevopsabcs"
-$GIT_NEW_REPO_NAME = "myway13" #create manually
+$GIT_NEW_REPO_NAME = "myway15" #create manually - CHANGE THIS
 
 $GIT_REPO = "https://github.com/$GIT_USER/$GIT_NEW_REPO_NAME.git"
+
+gh repo create $GIT_REPO --public
 
 echo ""
 echo "#=================================#"
@@ -60,3 +62,7 @@ keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageV
 # keptn send event -f remediation.triggered.json
 # kubectl -n $PROJECT-production get pods
 #   kubectl get all -n podtato-head-qa
+
+
+#keptn delete project $PROJECT
+#kubectl delete namespace $PROJECT-qa $PROJECT-production
