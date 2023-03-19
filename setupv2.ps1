@@ -11,9 +11,9 @@ $API_TOKEN = kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.kept
 Write-Host $API_TOKEN
 keptn auth --endpoint=http://192.168.102.38/api --api-token=$API_TOKEN
 
-$GITHUB_TOKEN = "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"
+$GITHUB_TOKEN = "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"
 $GIT_USER = "emmanuelknafodevopsabcs"
-$GIT_NEW_REPO_NAME = "myway8" #create manually
+$GIT_NEW_REPO_NAME = "myway9" #create manually
 
 $GIT_REPO = "https://github.com/$GIT_USER/$GIT_NEW_REPO_NAME.git"
 
@@ -30,3 +30,27 @@ echo "New Git repo to be created: $GIT_REPO"
 
 $PROJECT = "podtato-head"
 keptn create project $PROJECT --shipyard=./shipyard.yaml --git-user=$GIT_USER --git-token=$GITHUB_TOKEN --git-remote-url=$GIT_REPO
+keptn create service helloservice --project=$PROJECT
+
+keptn add-resource --project=$PROJECT --service=helloservice --all-stages --resource=./helm/helloservice.tgz --resourceUri=charts/helloservice.tgz
+
+keptn add-resource --project=$PROJECT --service=helloservice --stage=qa --resource=./locust/basic.py
+keptn add-resource --project=$PROJECT --service=helloservice --stage=qa --resource=./locust/locust.conf
+
+keptn add-resource --project=$PROJECT --service=helloservice --all-stages --resource=job-executor-config.yaml --resourceUri=job/config.yaml
+
+keptn add-resource --project=$PROJECT --service=helloservice --stage=qa --resource=prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
+keptn add-resource --project=$PROJECT --service=helloservice --stage=qa --resource=slo.yaml --resourceUri=slo.yaml
+
+keptn configure monitoring prometheus --project=$PROJECT --service=helloservice
+
+keptn add-resource --project=$PROJECT --service=helloservice --stage=production --resource=remediation.yaml
+
+$IMAGE = "ghcr.io/podtato-head/podtatoserver"
+$VERSION = "v0.1.1"
+$SLOW_VERSION = "v0.1.2"
+
+$imageVersion = "${IMAGE}:${VERSION}"
+echo $imageVersion
+
+keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageVersion --labels=version=$VERSION
