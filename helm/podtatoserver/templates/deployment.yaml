@@ -26,5 +26,3 @@ spec:
         env:
         - name: PORT
           value: "9000"
-        - name: KEPTN_PROJECT
-              value: "{{ .Chart.Name }}"
