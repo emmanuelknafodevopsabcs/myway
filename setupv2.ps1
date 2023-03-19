@@ -54,3 +54,6 @@ $imageVersion = "${IMAGE}:${VERSION}"
 echo $imageVersion
 
 keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageVersion --labels=version=$VERSION
+
+
+#   keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageVersion --labels=version=$SLOW_VERSION,slow=true
