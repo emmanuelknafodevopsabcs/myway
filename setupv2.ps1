@@ -60,9 +60,10 @@ keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageV
 
 #   keptn trigger delivery --project=$PROJECT --service=helloservice --image=$imageVersion --labels=version=$SLOW_VERSION,slow=true
 # keptn send event -f remediation.triggered.json
+#   kubectl get all -n $PROJECT-qa
 # kubectl -n $PROJECT-production get pods
-#   kubectl get all -n podtato-head-qa
 
 
+# CLEAN UP
 #keptn delete project $PROJECT
 #kubectl delete namespace $PROJECT-qa $PROJECT-production
