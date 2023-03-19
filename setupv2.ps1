@@ -11,9 +11,9 @@ $API_TOKEN = kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.kept
 Write-Host $API_TOKEN
 keptn auth --endpoint=http://192.168.102.38/api --api-token=$API_TOKEN
 
-$GITHUB_TOKEN = "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"
+$GITHUB_TOKEN = "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"
 $GIT_USER = "emmanuelknafodevopsabcs"
-$GIT_NEW_REPO_NAME = "myway7" #create manually
+$GIT_NEW_REPO_NAME = "myway8" #create manually
 
 $GIT_REPO = "https://github.com/$GIT_USER/$GIT_NEW_REPO_NAME.git"
 
@@ -27,12 +27,6 @@ echo "Git Token: $GITHUB_TOKEN"
 echo "New Git repo to be created: $GIT_REPO"
 
 #gh repo create $GIT_REPO --public
-keptn create project jes-example -y -s jes-hello-world/shipyard.yaml --git-user=$GIT_USER --git-token=$GITHUB_TOKEN --git-remote-url=$GIT_REPO
-keptn create service hello --project jes-example -y
 
-#Add a simple "Hello world!" job config to production stage for service hello as job/config.yaml
-
-keptn add-resource --project jes-example --service hello --stage production --resource jes-hello-world/jobconfig.yaml --resourceUri job/config.yaml
-#Trigger the example-seq sequence.
-
-keptn trigger sequence example-seq --project jes-example --service hello --stage production
+$PROJECT = "podtato-head"
+keptn create project $PROJECT --shipyard=./shipyard.yaml --git-user=$GIT_USER --git-token=$GITHUB_TOKEN --git-remote-url=$GIT_REPO
