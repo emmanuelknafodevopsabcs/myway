@@ -11,9 +11,9 @@ $API_TOKEN = kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.kept
 Write-Host $API_TOKEN
 keptn auth --endpoint=http://192.168.102.38/api --api-token=$API_TOKEN
 
-$GITHUB_TOKEN = "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"
+$GITHUB_TOKEN = "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"
 $GIT_USER = "emmanuelknafodevopsabcs"
-$GIT_NEW_REPO_NAME = "myway2"
+$GIT_NEW_REPO_NAME = "myway5"
 
 $GIT_REPO = "https://github.com/$GIT_USER/$GIT_NEW_REPO_NAME.git"
 
@@ -25,3 +25,7 @@ echo ""
 echo "Git Username: $GIT_USER"
 echo "Git Token: $GITHUB_TOKEN"
 echo "New Git repo to be created: $GIT_REPO"
+
+gh repo create $GIT_REPO --public
+keptn create project jes-example -y -s jes-hello-world/shipyard.yaml --git-user=$GIT_USER --git-token=$GITHUB_TOKEN --git-remote-url=$GIT_REPO
+#keptn create service hello --project jes-example -y
