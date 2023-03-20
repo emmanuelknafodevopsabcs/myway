@@ -11,9 +11,9 @@ $API_TOKEN = kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.kept
 Write-Host $API_TOKEN
 keptn auth --endpoint=http://192.168.102.38/api --api-token=$API_TOKEN
 
-$GITHUB_TOKEN = "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" # ONLY NEED TO INPUT NEW TOKEN
+$GITHUB_TOKEN = "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" # ONLY NEED TO INPUT NEW TOKEN
 $GIT_USER = "emmanuelknafodevopsabcs"
-$GIT_NEW_REPO_NAME = "myway15" #create manually - CHANGE THIS
+$GIT_NEW_REPO_NAME = "myway16" #create manually - CHANGE THIS
 
 $GIT_REPO = "https://github.com/$GIT_USER/$GIT_NEW_REPO_NAME.git"
 
